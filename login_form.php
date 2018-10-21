@@ -1,7 +1,9 @@
 <?php //1701140_변수정 ?>
 <!DOCTYPE html>
 <html>
-	<head>
+<head>
+    <?php /* require("html_head.php")*/ ?>
+s
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width", initial-scale="1">
         <title>집게리아 MainPage</title>
@@ -101,94 +103,35 @@
             }
 
         </style>
-    </head> 
-
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary top_nav">
-            <div class="collapse navbar-collapse top_nav_content" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login_form.php">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register_form.php">회원가입</a>
-                    </li>
-                </ul>
+</head>
+<body>
+    <?php require("top_nav.php") ?>
+    <?php require("nav.php") ?>
+    
+    <div class="top_article">
+    <h1>로그인</h1>
+    <div>좋은 세상을 만드는 집게리아 홈페이지에 오신 것을 환영합니다.</div>
+    </div>
+    <article>		
+        <form action="login.php" method="post"> <!--post방식으로 값 전달-->
+            <div class="form-group">
+                <label for="id">아이디</label>
+                <input type="text" class="form-control" id="id" name="id">
             </div>
-            <button type="button" class="btn btn-primary">
-                알림<span class="badge badge-light">4</span>
-            </button>
-        </nav>
-        <a href="jingeria.php"><img class="mark" src="images/jingeria.png" alt="피자" /></a>
-        <nav class="navbar navbar-expand-lg nav" style="background-color: white;">
-            <div class="collapse navbar-collapse nav_content" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a href="menu.php"><img src="images/menu.jpg" alt="피자"/></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#"><img src="images/store.jpg" alt="피자"/></a>
-                    </li>         
-                    <li class="nav-item">
-                        <a href="#"><img src="images/customer.jpg" alt="피자"/></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#"><img src="images/company.jpg" alt="피자"/></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">집게리아 사람들</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">고객센터</a>
-                    </li>
-                </ul>
-                
+            <div class="form-group">
+                <label for="pw">비밀번호</label>
+                <input type="password" class="form-control" id="pw" name="pw">
             </div>
-		</nav>
-		<div class="top_article">
-		<h1>로그인</h1>
-		<div>좋은 세상을 만드는 집게리아 홈페이지에 오신 것을 환영합니다.</div>
-		</div>
-		<article>		
-			<form action="login.php" method="post"> <!--post방식으로 값 전달-->
-				<div class="form-group">
-					<label for="id">아이디</label>
-					<input type="text" class="form-control" id="id" name="id">
-				</div>
-				<div class="form-group">
-					<label for="pw">비밀번호</label>
-					<input type="password" class="form-control" id="pw" name="pw">
-				</div>
-				<button type="submit" class="btn btn-primary btn-lg">로그인</button> 
-			</form>
-			<button class="btn btn-secondary" onclick="location.href='register_form.php'">아이디 찾기</button>
-			<button class="btn btn-secondary" onclick="location.href='register_form.php'">비밀번호 찾기</button>
-			<hr/>
-			<p>아직 집게리아 회원이 아니신가요? </p>
-			<p>집게리아 회원이 되시면 다양한 경험을 하실 수 있습니다</p>
-			<button class="btn btn-secondary" onclick="location.href='register_form.php'">회원가입</button>
-		</article>
-        <footer class="navbar navbar-expand-lg"  style="background-color: white;">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">회사소개</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">홍보센터</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">채용정보</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">제휴카드</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">이동약관</a>
-                </li>
-                <li class="nav-item">
-                    <b><a class="nav-link" href="#">개인정보취급방침</a></b>
-                </li>
-            </ul>
-        </footer>
-	</body>
+        
+            <button type="submit" class="btn btn-primary btn-lg">로그인</button> 
+        </form>
+        <button class="btn btn-secondary" onclick="location.href='register_form.php'">아이디 찾기</button>
+        <button class="btn btn-secondary" onclick="location.href='register_form.php'">비밀번호 찾기</button>
+        <hr/>
+        <p>아직 집게리아 회원이 아니신가요? </p>
+        <p>집게리아 회원이 되시면 다양한 경험을 하실 수 있습니다</p>
+        <button class="btn btn-secondary" onclick="location.href='register_form.php'">회원가입</button>
+    </article>
+    <?php require("footer.php") ?>
+</body>
 </html>
