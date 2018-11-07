@@ -1,8 +1,7 @@
-<?php //1701140_변수정 ?>
-<!DOCTYPE html>
 <?php 
     session_start(); 	
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -23,22 +22,58 @@
 		<?php require("top_nav.php") ?>
 		<?php require("nav.php") ?>
 		<?php
-			require_once("MemberDao.php"); // java inport와 유사함, require_once를 하면 한번만 읽어옴
+			require_once("MemberDao.php");
 			require_once("tools.php");
+			require_once("customerNoticesDao.php");
+			require_once("customerAdvertisingScheduleDao.php");
+			require_once("menuBurgerDao.php");
+			require_once("menuChickenDao.php");
+			require_once("menuSideDao.php");
+			require_once("menuDrinkDao.php");
+		
+			$name = isset($_SESSION["name"])?$_SESSION["name"]:"";
+			$writer = requestValues("writer");
 
-			$writeNum = requestValues("writeNum");
+			// 1. 클라이언트가 송신한 num값을 읽는다.
+			$num = requestValues("num");
+			// 2. 그 값으로 해당하는 게시글을 읽는다.
+			$modifyNum = requestValues("modifyNum");
 
-			session_start(); // 세션 시작
+			if($modifyNum==0){
+				$dao = new customerNoticesDao();
+				$msg = $dao->getMsg($num);
+				
+			} else if($modifyNum==1) {
+				$dao = new customerAdvertisingScheduleDao();
+				$msg = $dao->getMsg($num);
+				
+			} else if($modifyNum==2) {
+				$dao = new menuBurgerDao();
+				$msg = $dao->getMsg($num);
+				
+			} else if($modifyNum==3) {
+				$dao = new menuChickenDao();
+				$msg = $dao->getMsg($num);
+				
+			} else if($modifyNum==4) {
+				$dao = new menuSideDao();
+				$msg = $dao->getMsg($num);
+				
+			} else if($modifyNum==5) {
+				$dao = new menuDrinkDao();
+				$msg = $dao->getMsg($num);
+			} 
+			$mdao = new MemberDao(); // 생성자 실행 -> db연결됨
+			$member = $mdao->getMember($id); // 아이디가 프라이머리키라서 레코드가 하나뿐
 
-			$writer=isset($_SESSION["name"])?$_SESSION["name"]:"";
 		?>
 				
 		<div class="top_article">
 			<article>
-				<form action="write.php?writeNum=<?=$writeNum?>" method="post">
+			<form action="modify.php?num=<?= $msg["num"]?>&modifyNum=<?= $modifyNum ?>" method="post">
 				<div class="form-group"> <!-- title -->
 					<label fox="title">제목:</label>
-					<input type="text" class="form-control" id="title" name="title">
+					<input type="text" class="form-control" id="title" name="title" value="<?= $msg["title"]?>">
 				</div>
 				<div class="form-group"> <!-- writer -->
 					<label for="writer">작성자:</label>
@@ -47,12 +82,12 @@
 
 				<div class="form-group"> <!-- file -->
 					<label>업로드 파일 선택:</label>
-					<input type="file" name="file">
+					<input type="file" name="file" value="<?= $msg["file"]?>">
 				</div>
 			
 				<div class="form-group"> <!-- content -->
 					<label for="content">내용:</label>
-					<textarea id="content" name="content" rows="5"></textarea>   <!-- id 없앴음 content -->
+					<textarea id="content" name="content" rows="5"><?= $msg["content"]?></textarea>   <!-- id 없앴음 content -->
 				</div>	
 			
 				<script type="text/javascript">
@@ -83,8 +118,8 @@
 				}
 				</script>
 
-				<button type="submit" class ="btn btn-success" name="write" onclick="submitContents()">글 등록</button> <!-- submit, 글 등록 -->
-				<button class="btn btn-primary" onclick="location.href='board.php'">글 목록</button> <!-- 글 목록 -->
+				<button type="submit" class ="btn btn-success" name="modify" onclick="submitContents()">글 등록</button> <!-- submit, 글 등록 -->
+				<button class="btn btn-primary" onclick="location.href='jingeria.php'">글 목록</button> <!-- 글 목록 -->
 			</article>	
 		</div>	
 		<?php require("footer.php") ?>

@@ -60,15 +60,16 @@
 		}
 
 		// update.php에서 사용됨
-		function updateMember($id, $pw, $name) {
+		function updateMember($name, $phone, $id, $pw) {
 			try {
-				$sql = "update jingeria set name=:name, phone=:phone, pw=:pw, name=:name where id=:id";
+				$sql = "update jingeria set name=:name, phone=:phone, pw=:pw where id=:id";
 				$pstmt = $this->db->prepare($sql);
 				
 				$pstmt->bindValue(":name",$name,PDO::PARAM_STR);
 				$pstmt->bindValue(":phone",$phone,PDO::PARAM_STR);
 				$pstmt->bindValue(":id",$id,PDO::PARAM_STR);
 				$pstmt->bindValue(":pw",$pw,PDO::PARAM_STR);
+
 				
 				$pstmt->execute();
 				

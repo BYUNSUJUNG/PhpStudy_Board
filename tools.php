@@ -1,14 +1,23 @@
 <?php
 
 	define ("MAIN_PAGE", "jingeria.php");
-	define ("VIEW_PAGE", "view.php");
+	define ("UPDATE_PAGE", "update_form.php");
+
+	define ("BURGER_PAGE", "menuBurger.php");
+	define ("CHICKEN_PAGE", "menuChicken.php");
+	define ("DRINK_PAGE", "menuDrink.php");
+	define ("SIDE_PAGE", "menuSide.php");
 	define ("NOTICES_PAGE", "customerNotices.php");
 	define ("SCHEDULE_PAGE", "customerAdvertisingSchedule.php");
+	define ("SHOPPINGCART_PAGE", "shoppingCartBoard.php");
 	
 
 	
 	define ("NUM_LINES", 5); // 한 페이지 출력할 게시물 수
 	define ("NUM_PAGE_LINKS", 5); // 한 페이지 출력할 페이지 링크 수
+	
+	define ("MENU_NUM_LINES", 4); // 메뉴 페이지, 한 페이지 출력할 게시물 수
+	define ("MENU_NUM_PAGE_LINKS", 5); // 메뉴 페이지, 한 페이지 출력할 페이지 링크 수
 	
 
 	//NUM_PAGE_LINKS(5) : startPage 값은 1 6 11 16

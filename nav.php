@@ -2,10 +2,10 @@
     <div class="collapse navbar-collapse nav_content" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a href="menu.php"><img src="images/menu.jpg" alt="menu"/></a>
+                <a href="menuBurger.php"><img src="images/menu.jpg" alt="menu"/></a>
             </li>
             <li class="nav-item">
-                <a href="store.php"><img src="images/store.jpg" alt="store"/></a>
+                <a href="storeNationwideFranchise.php"><img src="images/store.jpg" alt="store"/></a>
             </li>         
             <li class="nav-item">
                 <a href="customerNotices.php"><img src="images/customer.jpg" alt="customer"/></a>

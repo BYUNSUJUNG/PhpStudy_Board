@@ -1,22 +1,24 @@
 <?php //1701140_변수정 ?>
 <?php 
     session_start(); 	
+    $id= isset($_SESSION["id"])?$_SESSION["id"]:"";
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?php require("html_head.php") ?>
-    <?php require("company_head.php") ?>
+    <?php require("menu_head.php") ?>
 </head>
 <body>
     <?php require("top_nav.php") ?>
     <?php require("nav.php") ?>
-    <?php require("companySidebar.php") ?>
+    <?php require("storeSidebar.php") ?>
+
     <div class="container">		
-        <h2>회사연혁</h2>
-        <hr>
-        <!-- <img class="button_left" src="images/companyHistory.jpg" alt="피자" /> -->
+        <h2>가맹점 갤러리</h2>
+        <hr class="head">
     </div>
+
     <?php require("footer.php") ?>
 </body>
 </html>

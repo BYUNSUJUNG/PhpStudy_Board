@@ -1,6 +1,6 @@
 <?php //1701140_변수정 ?>
 <?php
-	class customerAdvertisingScheduleDao {
+	class shoppingCartDao {
 		
 		private $db;  // PDO 객체를 저장하기 위한 프로퍼티
 		
@@ -19,7 +19,7 @@
 		// view.php에서 사용됨
 		function getMsg($num){ 
             try{
-                $pstmt = $this->db->prepare("select * from advertisingSchedule where num=:num");
+                $pstmt = $this->db->prepare("select * from shoppingCart where num=:num");
                 $pstmt->bindValue(":num", $num, PDO::PARAM_STR);
                 $pstmt->execute();
                 $result=$pstmt->fetch(PDO::FETCH_ASSOC);
@@ -30,31 +30,19 @@
 		}
 		
 		// write.php에서 사용됨
-		function insertBoard($writer, $title, $file, $content) { 
+		function insertBoard($menu, $title, $file) { 
 			try {
-				$sql = "insert into advertisingSchedule(writer,title, file, content) values(:writer,:title, :file, :content)";
+				$sql = "insert into shoppingCart(menu, title,file) values(:menu, :title,:file)";
 				$pstmt = $this->db->prepare($sql);
-				$pstmt->bindValue(":writer",$writer,PDO::PARAM_STR);
+				$pstmt->bindValue(":menu",$menu,PDO::PARAM_STR);
 				$pstmt->bindValue(":title",$title,PDO::PARAM_STR);
 				$pstmt->bindValue(":file",$file,PDO::PARAM_STR);
-				$pstmt->bindValue(":content",$content,PDO::PARAM_STR);
 				$pstmt->execute(); // 실행
 			} catch(PDOException $e) {
 				exit($e->getMessage());
 			}
 		}
 
-		// view.php에서 사용됨
-		function increaseHits($num) { 
-			try {
-				$sql = "update advertisingSchedule set hits=hits+1 where num=:num";
-				$pstmt = $this->db->prepare($sql);
-				$pstmt->bindValue(":num",$num,PDO::PARAM_STR);
-				$pstmt->execute(); // 실행
-			} catch(PDOException $e) {
-				exit($e->getMessage());
-			}
-		}
 
 		// 모든 업로드된 파일 정보 반환(2차원 배열)
 		// board.php에서 사용됨
@@ -62,7 +50,7 @@
 			//sql: "select * from board"
 			try {
 				$numLine=NUM_LINES;
-				$pstmt=$this->db->prepare("select * from advertisingSchedule order by num desc limit $num_page, $numLine");
+				$pstmt=$this->db->prepare("select * from shoppingCart order by num desc limit $num_page, $numLine");
 				// bindValue 필요 없음
 				$pstmt->execute();
 				// 하나씩 가져올때는 fetch을 사용함
@@ -77,11 +65,11 @@
 		
 		}
 
-
+/*
 		// modify.php에서 사용됨
 		function updateBoard($num, $writer, $title, $file, $content) { 
 			try {
-				$sql = "update advertisingSchedule set writer=:writer, title=:title, file=:file, content=:content where num=:num";
+				$sql = "update shoppingCart set writer=:writer, title=:title, file=:file, content=:content where num=:num";
 				$pstmt = $this->db->prepare($sql);
 				$pstmt->bindValue(":num",$num,PDO::PARAM_STR);
 				$pstmt->bindValue(":writer",$writer,PDO::PARAM_STR);
@@ -93,11 +81,11 @@
 				exit($e->getMessage());
 			}
 		}
-
+*/
 		// delete.php에서 사용됨
 		function deleteBoard($num) { 
 			try { 
-				$sql = "delete from advertisingSchedule where num=:num";
+				$sql = "delete from shoppingCart where num=:num";
 				$pstmt = $this->db->prepare($sql);
 				$pstmt->bindValue(":num",$num,PDO::PARAM_STR);
 				$pstmt->execute(); // 실행
@@ -107,10 +95,12 @@
 		}
 
 		
+
+		
 		function getCountMsgs() {
 			// 게시판의 전체 글 수(전체 레코드 숫자) 반환
 			try { 
-				$rows = $this->db->prepare("select count(*) from advertisingSchedule");
+				$rows = $this->db->prepare("select count(*) from shoppingCart");
 				$rows->execute();
 				$msg=$rows->fetchColumn();
 			} catch(PDOException $e) {

@@ -29,13 +29,15 @@
 			return $result;
 		}
 		
+		
 		// write.php에서 사용됨
-		function insertBoard($writer, $title, $content) { 
+		function insertBoard($writer, $title, $file, $content) { 
 			try {
-				$sql = "insert into notices(writer,title,content) values(:writer,:title,:content)";
+				$sql = "insert into notices(writer,title,file,content) values(:writer,:title,:file,:content)";
 				$pstmt = $this->db->prepare($sql);
 				$pstmt->bindValue(":writer",$writer,PDO::PARAM_STR);
 				$pstmt->bindValue(":title",$title,PDO::PARAM_STR);
+				$pstmt->bindValue(":file",$file,PDO::PARAM_STR);
 				$pstmt->bindValue(":content",$content,PDO::PARAM_STR);
 				$pstmt->execute(); // 실행
 			} catch(PDOException $e) {
@@ -76,15 +78,33 @@
 		
 		}
 
+		function getManySearchMsgs($num_page,$searchKey) { 
+			//sql: "select * from board"
+			try {
+				$numLine=NUM_LINES;
+				$pstmt=$this->db->prepare("select * from notices order by num desc limit $num_page, $numLine where title like '%".$searchKey."%'");
+				$pstmt->execute();
+				// 하나씩 가져올때는 fetch을 사용함
+				// 일차원배열로 만들어서 가져와주세요. FETCH_ASSOC을 사용함
+				// $pstmt->fetch(PDO::FETCH_ASSOC);
+				// 하지만 한꺼번에 할 것이기 때문에 fetchAll을 사용한다.
+				$msg=$pstmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch(PDOException $e){
+				exit($e->getMessage());
+			}
+			return $msg;
+		
+		}
 
 		// modify.php에서 사용됨
-		function updateBoard($num, $writer, $title, $content) { 
+		function updateBoard($num, $writer, $title, $file, $content) { 
 			try {
-				$sql = "update notices set writer=:writer, title=:title, content=:content where num=:num";
+				$sql = "update notices set writer=:writer, title=:title, file=:file, content=:content where num=:num";
 				$pstmt = $this->db->prepare($sql);
 				$pstmt->bindValue(":num",$num,PDO::PARAM_STR);
 				$pstmt->bindValue(":writer",$writer,PDO::PARAM_STR);
 				$pstmt->bindValue(":title",$title,PDO::PARAM_STR);
+				$pstmt->bindValue(":file",$file,PDO::PARAM_STR);
 				$pstmt->bindValue(":content",$content,PDO::PARAM_STR);
 				$pstmt->execute(); // 실행
 			} catch(PDOException $e) {
@@ -108,9 +128,21 @@
 		function getCountMsgs() {
 			// 게시판의 전체 글 수(전체 레코드 숫자) 반환
 			try { 
-				$rows = $this->db->prepare("select count(*) from notices");
-				$rows->execute();
-				$msg=$rows->fetchColumn();
+				$pstmt = $this->db->prepare("select count(*) from notices");
+				$pstmt->execute();
+				$msg=$pstmt->fetchColumn();
+			} catch(PDOException $e) {
+				exit($e->getMessage());
+			}
+			return $msg;
+		}
+
+		function getCountSearchMsgs($searchKey) {
+			// 게시판의 전체 글 수(전체 레코드 숫자) 반환
+			try { 
+				$pstmt = $this->db->prepare("select * from notices where title like '%".$searchKey."%'");
+				$pstmt->execute();
+				$msg=$pstmt->fetchColumn();
 			} catch(PDOException $e) {
 				exit($e->getMessage());
 			}
